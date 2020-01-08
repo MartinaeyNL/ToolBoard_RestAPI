@@ -30,7 +30,7 @@ public abstract class DataConHandler {
             rSet = statement.executeQuery(query);
 
             // Splitting the received objects
-            if(rSet.isBeforeFirst() == true) {
+            if(rSet.isBeforeFirst()) {
                 while(rSet.next()) {
                     JsonObject obj = new JsonObject();
                     for(int i = 1; i < (rSet.getMetaData().getColumnCount() + 1); i++) {
@@ -43,7 +43,7 @@ public abstract class DataConHandler {
             e.printStackTrace();
         } finally {
             try { statement.close(); }
-            catch (SQLException e) { e.printStackTrace(); }
+            catch (SQLException | NullPointerException e) { e.printStackTrace(); }
         }
 
         // Return
