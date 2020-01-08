@@ -1,6 +1,6 @@
-package rest.dataStorage;
+package rest.dataConnections;
 
-public class MySqlConHandler extends DataConHandler {
+public class MySqlConHandler extends ConnectionHandler {
 
     // Constructor
     public MySqlConHandler() {

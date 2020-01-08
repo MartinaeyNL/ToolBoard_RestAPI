@@ -1,4 +1,4 @@
-package rest.dataStorage;
+package rest.dataConnections;
 
 import com.google.gson.JsonObject;
 
@@ -6,11 +6,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public abstract class DataConHandler {
+public abstract class ConnectionHandler {
 
     // Variables
-    public String urlString = null;
-    public String[] credentials = null;
+    public String urlString;
+    public String[] credentials;
 
     private Connection connection = null;
 
@@ -25,18 +25,26 @@ public abstract class DataConHandler {
         Statement statement = null;
         try {
             // Preparing and executing the query
-            ResultSet rSet = null;
             statement = connection.createStatement();
-            rSet = statement.executeQuery(query);
+            if(query.contains("INSERT") || query.contains("UPDATE") || query.contains("DELETE")) {
+                int result = statement.executeUpdate(query);
+                JsonObject obj = new JsonObject();
+                obj.addProperty("result", result);
+                toReturn.add(obj);
+            }
+            else {
+                ResultSet rSet = null;
+                rSet = statement.executeQuery(query);
 
-            // Splitting the received objects
-            if(rSet.isBeforeFirst()) {
-                while(rSet.next()) {
-                    JsonObject obj = new JsonObject();
-                    for(int i = 1; i < (rSet.getMetaData().getColumnCount() + 1); i++) {
-                        obj.addProperty(rSet.getMetaData().getColumnName(i), rSet.getString(i));
+                // Splitting the received objects
+                if(rSet.isBeforeFirst()) {
+                    while(rSet.next()) {
+                        JsonObject obj = new JsonObject();
+                        for(int i = 1; i < (rSet.getMetaData().getColumnCount() + 1); i++) {
+                            obj.addProperty(rSet.getMetaData().getColumnName(i), rSet.getString(i));
+                        }
+                        toReturn.add(obj);
                     }
-                    toReturn.add(obj);
                 }
             }
         } catch(SQLException e) {

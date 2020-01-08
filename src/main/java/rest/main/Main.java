@@ -1,6 +1,5 @@
 package rest.main;
 
-import com.google.gson.Gson;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -18,8 +17,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Starting grizzly...");
         HttpServer httpServer = startServer();
-        System.in.read();
-        httpServer.shutdownNow();
+        System.in.read(); // Leave it running till it has to ..
+        httpServer.shutdownNow(); // .. shutdown!
     }
 
     // Methods

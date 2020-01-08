@@ -3,7 +3,7 @@ package rest.services;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import rest.dataModels.User;
-import rest.dataStorage.DbHandler;
+import rest.dataHandlers.DatabaseHandler;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,11 +15,11 @@ public class AuthService implements Service {
 
     // Variables
     private final Gson gson = new Gson();
-    private DbHandler dbHandler;
+    private DatabaseHandler dbHandler;
 
     // Constructor
     public AuthService() {
-        this.dbHandler = new DbHandler();
+        this.dbHandler = new DatabaseHandler();
     }
 
     /*---------------------------------------------------*/
@@ -30,8 +30,8 @@ public class AuthService implements Service {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createUser(User user) {
-        System.out.println("User is [" + user + "]");
-        return Response.ok(gson.toJson(user), MediaType.APPLICATION_JSON).build();
+        Collection<JsonObject> received = dbHandler.createNewUser(user);
+        return Response.ok(gson.toJson(received), MediaType.APPLICATION_JSON).build();
     }
 
     @GET
@@ -39,7 +39,6 @@ public class AuthService implements Service {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUsers() {
         Collection<JsonObject> received = dbHandler.getAllUsers();
-        System.out.println("Received: [" + received + "]");
         return Response.ok(gson.toJson(received), MediaType.APPLICATION_JSON).build();
     }
 
