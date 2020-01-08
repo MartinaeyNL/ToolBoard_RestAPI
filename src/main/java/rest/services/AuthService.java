@@ -3,16 +3,24 @@ package rest.services;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import rest.dataModels.User;
+import rest.dataStorage.DbHandler;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collection;
 
 @Path("auth")
 public class AuthService implements Service {
 
     // Variables
     private final Gson gson = new Gson();
+    private DbHandler dbHandler;
+
+    // Constructor
+    public AuthService() {
+        this.dbHandler = new DbHandler();
+    }
 
     /*---------------------------------------------------*/
 
@@ -26,7 +34,16 @@ public class AuthService implements Service {
         return Response.ok(gson.toJson(user), MediaType.APPLICATION_JSON).build();
     }
 
-    // WORKS:
+    @GET
+    @Path("/getAllUsers")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllUsers() {
+        Collection<JsonObject> received = dbHandler.getAllUsers();
+        System.out.println("Received: [" + received + "]");
+        return Response.ok(gson.toJson(received), MediaType.APPLICATION_JSON).build();
+    }
+
+    // Works too ;)
     @POST
     @Path("/testRest")
     @Consumes(MediaType.TEXT_PLAIN)

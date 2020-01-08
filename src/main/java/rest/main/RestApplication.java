@@ -13,7 +13,7 @@ public class RestApplication extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> set = new HashSet<>();
         set.add(AuthService.class);
-        set.add(UserService.class);
+        //set.add(UserService.class);
         return set;
     }
 
