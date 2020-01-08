@@ -5,7 +5,6 @@ import rest.dataConnections.ConnectionHandler;
 import rest.dataConnections.MySqlConHandler;
 import rest.dataModels.User;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class DatabaseHandler {
