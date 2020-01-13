@@ -36,8 +36,8 @@ public class DatabaseHandler {
         try {
             // Try to add user to database, will return components if it exists (aka logs in).
             result = this.dataConHandler.executeQuery("INSERT INTO `Users` " +
-                "(`displayname`, `twitchUserId`) " +
-                "VALUES ('" + user.displayname + "', '" + user.twitchUserId + "');");
+                "(`displayName`, `twitchUserId`) " +
+                "VALUES ('" + user.displayName + "', '" + user.twitchUserId + "');");
         }
         catch(SQLException ex) {
             switch (ex.getErrorCode()) {

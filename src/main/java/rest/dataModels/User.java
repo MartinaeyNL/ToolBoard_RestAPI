@@ -3,7 +3,7 @@ package rest.dataModels;
 public class User {
 
     // Variables
-    public String displayname;
+    public String displayName;
     public String twitchUserId;
 
 }

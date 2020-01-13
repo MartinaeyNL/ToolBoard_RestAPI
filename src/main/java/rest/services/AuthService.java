@@ -32,7 +32,6 @@ public class AuthService implements Service {
     public Response connectUser(User user) {
         Collection<JsonObject> received = dbHandler.connectUser(user);
         String toReturn = gson.toJson(received);
-        System.out.println(toReturn);
         return Response.ok(toReturn, MediaType.APPLICATION_JSON).build();
     }
 
@@ -51,7 +50,6 @@ public class AuthService implements Service {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response testRest(@QueryParam("test")String test) {
-        System.out.println("Test is [" + test + "]");
         return Response.ok("Hey welcome to the rest server [" + test + "]", MediaType.TEXT_PLAIN).build();
     }
 }
