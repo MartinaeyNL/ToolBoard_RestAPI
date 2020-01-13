@@ -14,7 +14,7 @@ public abstract class ConnectionHandler {
 
     private Connection connection = null;
 
-    public Collection<JsonObject> executeQuery(String query) {
+    public Collection<JsonObject> executeQuery(String query) throws SQLException {
 
         // Getting the connection
         try { this.connection = DriverManager.getConnection(this.urlString, this.credentials[0], this.credentials[1]); }
@@ -47,10 +47,8 @@ public abstract class ConnectionHandler {
                     }
                 }
             }
-        } catch(SQLException e) {
-            e.printStackTrace();
         } finally {
-            try { statement.close(); }
+            try { if(statement != null) { statement.close(); } }
             catch (SQLException | NullPointerException e) { e.printStackTrace(); }
         }
 

@@ -26,13 +26,16 @@ public class AuthService implements Service {
 
     // Methods
     @POST
-    @Path("/createUser")
+    @Path("/connectUser")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createUser(User user) {
-        Collection<JsonObject> received = dbHandler.createNewUser(user);
-        return Response.ok(gson.toJson(received), MediaType.APPLICATION_JSON).build();
+    public Response connectUser(User user) {
+        Collection<JsonObject> received = dbHandler.connectUser(user);
+        String toReturn = gson.toJson(received);
+        System.out.println(toReturn);
+        return Response.ok(toReturn, MediaType.APPLICATION_JSON).build();
     }
+
 
     @GET
     @Path("/getAllUsers")

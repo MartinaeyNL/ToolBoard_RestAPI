@@ -4,6 +4,6 @@ public class User {
 
     // Variables
     public String displayname;
-    public String twitchToken;
+    public String twitchUserId;
 
 }
